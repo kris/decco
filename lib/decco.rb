@@ -15,17 +15,16 @@ module Decco
   def self.decorate(object, decorator = nil, view = nil)
     @_d ||= {}
     @_d[object] ||= builder(object, decorator, view)
-  rescue NameError
-    raise DecoratorNotFound
   end
 
   # Get decorator
   #
   # @see .decorate
   # @return [Mixed]
-  def self.builder(object, decorator, view)
-    decorator || begin
-      [object.class.to_s, 'Decorator'].join('').classify.constantize
-    end.new(object, view)
+  def self.builder(object, decorator = nil, view = nil)
+    decorator ||= [object.class.to_s, 'Decorator'].join('')
+    Kernel.const_get(decorator).new(object, view)
+  rescue NameError
+    raise DecoratorNotFound, "No such decorator: #{decorator}"
   end
 end

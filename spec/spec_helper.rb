@@ -14,3 +14,6 @@ class User; end
 class UserDecorator
   def initialize(user, view); end
 end
+
+class AltUserDecorator < UserDecorator
+end
