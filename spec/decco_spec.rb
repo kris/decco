@@ -8,7 +8,7 @@ describe Decco do
     end
     
     it 'should load a custom decorator' do
-      decorator = Decco.decorate(User.new, 'AltUserDecorator')
+      decorator = Decco.decorate(User.new, AltUserDecorator)
       expect(decorator).to be_an_instance_of(AltUserDecorator)
     end
     
